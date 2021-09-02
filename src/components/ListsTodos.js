@@ -20,6 +20,16 @@ export default function ListToDos() {
         Get Todos
       </button>
       {renderList()}
+      <button
+        onClick={() =>
+          dispatch({
+            type: sagaActions.ADD_TODO,
+            payload: { title: "DAVIDS", description: "MY TODO" },
+          })
+        }
+      >
+        Add Todo
+      </button>
     </div>
   );
 }

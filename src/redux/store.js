@@ -1,40 +1,12 @@
-import {
-  createSlice,
-  configureStore,
-  getDefaultMiddleware,
-} from "@reduxjs/toolkit";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
-import saga from "./saga";
+import rootSaga from "./rootSaga";
 
-const todoSlice = createSlice({
-  name: "todo",
-  initialState: {
-    todos: [],
-  },
-  reducers: {
-    fetchTodos: (state, action) => {
-      return {
-        todos: action.payload,
-      };
-    },
-  },
-});
-const usersSlice = createSlice({
-  name: "users",
-  initialState: {
-    users: [],
-  },
-  reducers: {
-    fetchUsers: (state, action) => {
-      return {
-        users: action.payload,
-      };
-    },
-  },
-});
+import { todoSlice } from "./todo/slice";
+import { usersSlice } from "./users/slice";
 
-export const { fetchTodos } = todoSlice.actions;
-export const { fetchUsers } = usersSlice.actions;
+export const todoActions = todoSlice.actions;
+export const userActions = usersSlice.actions;
 
 let sagaMiddleware = createSagaMiddleware();
 const middleware = [...getDefaultMiddleware({ thunk: false }), sagaMiddleware];
@@ -47,6 +19,6 @@ const store = configureStore({
   middleware,
 });
 
-sagaMiddleware.run(saga);
+sagaMiddleware.run(rootSaga);
 
 export default store;
