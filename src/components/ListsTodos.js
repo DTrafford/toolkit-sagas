@@ -6,7 +6,7 @@ export default function ListToDos() {
   const dispatch = useDispatch();
   const todos = useSelector((state) => state.todo.todos);
 
-  console.log(todos);
+  console.log('todos', todos);
 
   const renderList = () => {
     return todos.map((todo) => {
